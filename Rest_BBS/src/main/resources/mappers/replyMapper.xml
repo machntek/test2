@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace ="com.study.springrest.mappers.replyMapper">    
+ 	
+ 	<insert id="insert">
+ 		insert into reply (content, user_name, board_no)
+ 		values(#{content}, #{user_name},  #{board_no})
+ 	</insert>
+ 	
+ 	<select id="get" resultType="com.study.springrest.domain.ReplyVO">
+ 		select * from reply where reply_no= #{reply_no}
+ 	</select>
+ 	
+ 	<select id="getList" resultType="com.study.springrest.domain.ReplyVO">
+ 		select * from reply where board_no = #{board_no}
+ 	</select>
+ 	
+ 	<select id="getTotalCount" resultType="int">
+ 		select count(*) from reply where board_no = #{board_no}
+ 	</select>
+ 	
+ 	<select id="getListPage" resultType="com.study.springrest.domain.ReplyVO">
+ 		select * from reply where board_no = #{bno}							<!-- 변수보다 getter, setter 먼저 참조 -->
+ 		order by reply_no asc limit #{cri.startPage}, #{cri.articlePerPage} <!-- startPage를 getStartPage로 알아서 변환해줌 (변수만 있어도 알아서 가져옴)-->
+ 	</select>
+
+ 	
+ 	<delete id="delete">
+ 		delete from reply where reply_no =#{reply_no}
+ 	</delete>
+ 	
+ 	
+ </mapper>
